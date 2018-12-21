@@ -4,7 +4,7 @@ obj/alt_sys_init.o: alt_sys_init.c system.h linker.h \
  drivers/inc/altera_avalon_spi.h drivers/inc/altera_avalon_sysid_qsys.h \
  drivers/inc/altera_onchip_flash.h HAL/inc/sys/alt_flash_dev.h \
  HAL/inc/sys/alt_flash_types.h HAL/inc/sys/alt_llist.h \
- HAL/inc/priv/alt_dev_llist.h drivers/inc/i2c_opencores.h
+ HAL/inc/priv/alt_dev_llist.h
 
 system.h:
 
@@ -35,5 +35,3 @@ HAL/inc/sys/alt_flash_types.h:
 HAL/inc/sys/alt_llist.h:
 
 HAL/inc/priv/alt_dev_llist.h:
-
-drivers/inc/i2c_opencores.h:
