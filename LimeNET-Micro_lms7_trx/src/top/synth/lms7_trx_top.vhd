@@ -823,9 +823,9 @@ begin
 -- Output ports
 -- ----------------------------------------------------------------------------
 
-   -- FPGA_SPI (LMS, DAC, ADF) 
-   FPGA_SPI_SCLK    <=  inst0_spi_0_SCLK;                                  
-   FPGA_SPI_MOSI    <=  inst0_spi_0_MOSI;                      
+   -- FPGA_SPI (LMS, DAC, ADF, FLASH) 
+   FPGA_SPI_SCLK    <=  inst0_spi_1_SCLK when inst0_spi_1_SS_n(0) = '0' else inst0_spi_0_SCLK;                                  
+   FPGA_SPI_MOSI    <=  inst0_spi_1_MOSI when inst0_spi_1_SS_n(0) = '0' else inst0_spi_0_MOSI;                      
    FPGA_SPI_LMS_SS  <=  inst0_spi_0_SS_n(0); --RAPI_SPI1_CE1;
    int_FPGA_SPI_DAC_SS  <= inst0_spi_0_SS_n(2);
    
