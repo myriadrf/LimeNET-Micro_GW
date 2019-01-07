@@ -1,6 +1,6 @@
 -- ----------------------------------------------------------------------------
 -- FILE:          lms7_trx_top.vhd
--- DESCRIPTION:   Top level file for LimeSDR-Mini board
+-- DESCRIPTION:   Top level file for LimeNET-Micro board
 -- DATE:          10:06 AM Friday, May 11, 2018
 -- AUTHOR(s):     Lime Microsystems
 -- REVISIONS:
@@ -27,7 +27,7 @@ use altera.altera_primitives_components.all;
 entity lms7_trx_top is
    generic(
       -- General parameters
-      BOARD                   : string := "LimeSDR-Mini";
+      BOARD                   : string := "LimeNET-Micro";
       DEV_FAMILY              : string := "MAX 10";
       -- LMS7002 related 
       LMS_DIQ_WIDTH           : integer := 12;
