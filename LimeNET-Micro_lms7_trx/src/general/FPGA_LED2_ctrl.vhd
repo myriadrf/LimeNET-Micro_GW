@@ -24,7 +24,6 @@ entity FPGA_LED2_ctrl is
       adf_muxout     : in std_logic;
       dac_ss         : in std_logic;
       adf_ss         : in std_logic;
-      led_ctrl       : in std_logic_vector(2 downto 0);
       --output ports
       led_g          : out std_logic;
       led_r          : out std_logic
@@ -39,9 +38,6 @@ architecture arch of FPGA_LED2_ctrl is
 signal last_val   : std_logic_vector (1 downto 0);
 signal led_g_def  : std_logic;
 signal led_r_def  : std_logic;
-
-signal led_g_ovr  : std_logic;
-signal led_r_ovr  : std_logic;
 
 begin
 
@@ -58,21 +54,16 @@ begin
             last_val<=last_val;
          end if;
       end if;
-   end process;
-   
-   led_g_ovr <= '1' when led_ctrl(2)='1' and led_ctrl(1)='0' else '0';
-   led_r_ovr <= '1' when led_ctrl(1)='1' and led_ctrl(2)='0' else '0';	 
+   end process; 
 
    led_g_def <=   '0' when last_val="00" else 
-                  '1' when last_val="10" and adf_muxout='1' else 
-                  '0';
+                  '1' when last_val="10" and adf_muxout='1' else '0';
   
    led_r_def <=   '0' when last_val="00" else 
-                  '1' when last_val="10" and adf_muxout='0' else 
-                  '0'; 
+                  '1' when last_val="10" and adf_muxout='0' else '0'; 
   
-   led_g<= led_g_def when led_ctrl(0)='0' else led_g_ovr;
-   led_r<= led_r_def when led_ctrl(0)='0' else led_r_ovr;  
+   led_g<= led_g_def;
+   led_r<= led_r_def;  
   
   
 end arch;

@@ -1,50 +1,55 @@
 -- ----------------------------------------------------------------------------
--- FILE:          out_ctrl.vhd
--- DESCRIPTION:   output control module
--- DATE:          11:27 AM Friday, January 11, 2019
+-- FILE:          led_ctrl.vhd
+-- DESCRIPTION:   led control module
+-- DATE:          11:35 AM Monday, January 11, 2019
 -- AUTHOR(s):     Lime Microsystems
 -- REVISIONS:
 -- ----------------------------------------------------------------------------
 
 -- ----------------------------------------------------------------------------
--- NOTES:
+--NOTES:
 -- ----------------------------------------------------------------------------
+-- altera vhdl_input_version vhdl_2008
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-
--- ----------------------------------------------------------------------------
--- Entity declaration
--- ----------------------------------------------------------------------------
-entity out_ctrl is
+entity led_ctrl is
    generic(
-      active_lvl   : std_logic := '0'  -- Active level of output
-   );
+      active_lvl  : std_logic := '0'
+      );
    port (
-
-      ovrd_en  : in std_logic;
-      ovrd_val : in std_logic;
-      input    : in std_logic;
-      output   : out std_logic;
-
+      ovrd_en     : in  std_logic;
+      ovrd_val_g  : in  std_logic;
+      ovrd_val_r  : in  std_logic;
+      input_g     : in  std_logic;
+      input_r     : in  std_logic;
+      output_g    : out std_logic;
+      output_r    : out std_logic
    );
-end out_ctrl;
+end entity led_ctrl;
 
--- ----------------------------------------------------------------------------
--- Architecture
--- ----------------------------------------------------------------------------
-architecture arch of out_ctrl is
---declare signals,  components here
-signal output_tmp  : std_logic;
-
-
+architecture rtl of led_ctrl is
 begin
+
+led_g_ctrl : entity work.out_ctrl
+generic map(
+   active_lvl  => active_lvl
+   )
+port map(
+   ovrd_en     => ovrd_en,
+   ovrd_val    => ovrd_val_g,
+   input       => input_g,
+   output      => output_g
+   );
    
-   -- MUX between input and averide value
-   output_tmp  <= input       when ovrd_en='0'        else ovrd_val;
-   -- Output active level 
-   output      <= output_tmp  when active_lvl = '1'   else not output_tmp;
- 
-end arch;   
+led_r_ctrl : entity work.out_ctrl
+generic map(
+   active_lvl  => active_lvl
+   )
+port map(
+   ovrd_en     => ovrd_en,
+   ovrd_val    => ovrd_val_r,
+   input       => input_r,
+   output      => output_r
+   );
 
-
+end architecture rtl;

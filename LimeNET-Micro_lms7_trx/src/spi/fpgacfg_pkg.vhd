@@ -69,7 +69,9 @@ package fpgacfg_pkg is
       GPIO              : std_logic_vector(15 downto 0);
       FPGA_LED1_CTRL    : std_logic_vector(2 downto 0);
       FPGA_LED2_CTRL    : std_logic_vector(2 downto 0);
-      FX3_LED_CTRL      : std_logic_vector(2 downto 0);
+      FPGA_LED3_CTRL    : std_logic_vector(2 downto 0);
+      FPGA_LED4_CTRL    : std_logic_vector(2 downto 0);
+      FPGA_LED5_CTRL    : std_logic_vector(2 downto 0);
       CLK_ENA           : std_logic_vector(3 downto 0);
       sync_pulse_period : std_logic_vector(31 downto 0);
       sync_size         : std_logic_vector(15 downto 0);

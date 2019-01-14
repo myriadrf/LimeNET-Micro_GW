@@ -280,7 +280,11 @@ signal inst4_led2_g              : std_logic;
 signal inst4_led2_r              : std_logic;
 signal inst4_led3_g              : std_logic;
 signal inst4_led3_r              : std_logic;
-
+signal FPGA_LED1_G,FPGA_LED1_R   : std_logic;
+signal FPGA_LED2_G,FPGA_LED2_R   : std_logic;
+signal FPGA_LED3_G,FPGA_LED3_R   : std_logic;
+signal FPGA_LED4_G,FPGA_LED4_R   : std_logic;
+signal FPGA_LED5_G,FPGA_LED5_R   : std_logic;
 
 
 --inst5
@@ -597,8 +601,13 @@ begin
 -- ----------------------------------------------------------------------------
    inst4_general_periph_top : entity work.general_periph_top
    generic map(
-      DEV_FAMILY  => DEV_FAMILY,
-      N_GPIO      => C_INST4_GPIO_N
+      DEV_FAMILY        => DEV_FAMILY,
+      N_GPIO            => C_INST4_GPIO_N,
+      led1_active_lvl   => '0',
+      led2_active_lvl   => '0',
+      led3_active_lvl   => '0',
+      led4_active_lvl   => '0',
+      led5_active_lvl   => '0'
    )
    port map(
       -- General ports
@@ -608,27 +617,47 @@ begin
       to_periphcfg         => inst0_to_periphcfg,
       from_periphcfg       => inst0_from_periphcfg,     
       -- Dual colour LEDs
-      -- LED1 (Clock and PLL lock status)
-      led1_pll1_locked     => inst1_pll_locked,
-      led1_pll2_locked     => inst1_pll_locked,
-      led1_ctrl            => inst0_from_fpgacfg.FPGA_LED1_CTRL,
-      led1_g               => inst4_led1_g, 
-      led1_r               => inst4_led1_r,      
-      --LED2 (TCXO control status)
-      led2_clk             => inst0_spi_0_SCLK,
-      led2_adf_muxout      => ADF_MUXOUT,
-      led2_dac_ss          => inst0_spi_0_SS_n(2),
-      led2_adf_ss          => inst0_spi_0_SS_n(3),
-      led2_ctrl            => inst0_from_fpgacfg.FPGA_LED2_CTRL,
-      led2_g               => inst4_led2_g,
-      led2_r               => inst4_led2_r,     
-      --LED3 (FTDI and NIOS CPU busy)
-      led3_g_in            => not inst5_busy,
-      led3_r_in            => inst5_busy,
-      led3_ctrl            => inst0_from_fpgacfg.FX3_LED_CTRL,
-      led3_hw_ver          => "0011",
-      led3_g               => inst4_led3_g,
-      led3_r               => inst4_led3_r,     
+      -- LED1 ( Raspberry eMMC enable )
+      led1_in_g            =>RAPI_EMMC_EN,
+      led1_in_r            =>NOT RAPI_EMMC_EN,
+      led1_ctrl            =>inst0_from_fpgacfg.FPGA_LED1_CTRL,
+      led1_out_g           =>FPGA_LED1_G,
+      led1_out_r           =>FPGA_LED1_R,
+      
+      -- LED2 ( FTDI and NIOS busy )
+      led2_in_g            =>not inst5_busy,
+      led2_in_r            =>inst5_busy,
+      led2_ctrl            =>inst0_from_fpgacfg.FPGA_LED2_CTRL,
+      led2_out_g           =>FPGA_LED2_G,
+      led2_out_r           =>FPGA_LED2_R,
+      led2_hw_ver          =>"0011",
+      
+      
+      -- LED3 ( Clock and PLL lock )
+      led3_ctrl            =>inst0_from_fpgacfg.FPGA_LED3_CTRL,
+      led3_out_g           =>FPGA_LED3_G,
+      led3_out_r           =>FPGA_LED3_R,
+      led3_pll1_locked     =>inst1_pll_locked,
+      led3_pll2_locked     =>inst1_pll_locked,
+      
+      
+      -- LED4 ( TCXO control status )
+      led4_ctrl            =>inst0_from_fpgacfg.FPGA_LED4_CTRL,
+      led4_out_g           =>FPGA_LED4_G,
+      led4_out_r           =>FPGA_LED4_R,
+                           
+      led4_clk             =>inst0_spi_0_SCLK,
+      led4_adf_muxout      =>ADF_MUXOUT,
+      led4_dac_ss          =>inst0_spi_0_SS_n(2),
+      led4_adf_ss          =>inst0_spi_0_SS_n(3),
+      
+      
+      -- LED5 ( GNSS status )
+      led5_in_g            =>NOT inst7_fpga_led_g,
+      led5_in_r            =>NOT inst7_fpga_led_r,
+      led5_ctrl            =>inst0_from_fpgacfg.FPGA_LED5_CTRL,
+      led5_out_g           =>FPGA_LED5_G,
+      led5_out_r           =>FPGA_LED5_R,
       --GPIO
       gpio_dir             => (others=>'1'),
       gpio_out_val         => "000000000" & inst1_pll_locked,
@@ -636,7 +665,14 @@ begin
       gpio                 => inst4_gpio,      
       --Fan control
       fan_sens_in          => LM75_OS,
-      fan_ctrl_out         => FAN_CTRL
+      fan_ctrl_out         => FAN_CTRL,
+      
+      --Button
+      FPGA_BTN             => NOT FPGA_BTN,
+      
+      --Buzzer
+      Buzzer_en            => '0',
+      Buzzer               => BUZZER
    );
    
       inst5_busy_delay : entity work.busy_delay
@@ -771,20 +807,20 @@ begin
 -- Shift registers
 -- ----------------------------------------------------------------------------
    -- Raspberry activity
-   inst9_data( 0) <= NOT RAPI_EMMC_EN;       -- FPGA_LED1_R
-   inst9_data( 1) <= RAPI_EMMC_EN;           -- FPGA_LED1_G
+   inst9_data( 0) <=FPGA_LED1_R;
+   inst9_data( 1) <=FPGA_LED1_G;
    -- FTDI activity
-   inst9_data( 2) <= NOT inst4_led3_r;       -- FPGA_LED2_R
-   inst9_data( 3) <= NOT inst4_led3_g;       -- FPGA_LED2_G
+   inst9_data( 2) <=FPGA_LED2_R;
+   inst9_data( 3) <=FPGA_LED2_G;
    -- FPGA alive and PLL lock
-   inst9_data( 4) <= NOT inst4_led1_r;       -- FPGA_LED3_R
-   inst9_data( 5) <= NOT inst4_led1_g;       -- FPGA_LED3_G
+   inst9_data( 4) <=FPGA_LED3_R;
+   inst9_data( 5) <=FPGA_LED3_G;
    -- VCTCXO tamer tune state
-   inst9_data( 6) <= NOT inst4_led2_r;       -- FPGA_LED4_R
-   inst9_data( 7) <= NOT inst4_led2_g;       -- FPGA_LED4_G
+   inst9_data( 6) <=FPGA_LED4_R;
+   inst9_data( 7) <=FPGA_LED4_G;
    
-   inst9_data( 8) <= NOT inst7_fpga_led_r;   -- FPGA_LED5_R    
-   inst9_data( 9) <= NOT inst7_fpga_led_g;   -- FPGA_LED5_G    
+   inst9_data( 8) <=FPGA_LED5_R;    
+   inst9_data( 9) <=FPGA_LED5_G;    
    inst9_data(10) <= ETH_GPIO0;              -- ETH_LED1       
    inst9_data(11) <= ETH_GPIO1;              -- ETH_LED2       
    inst9_data(12) <= inst0_from_fpgacfg.LMS1_RESET AND inst0_lms_ctr_gpio(0); -- LMS_RESET      
@@ -888,8 +924,6 @@ begin
    --FPGA_LED5_R <= ETH_GPIO2;
    --FPGA_LED5_G <= not ETH_GPIO2;
 
-   -- Buzzer
-   BUZZER <= not FPGA_BTN;
    
    --Testing ()
    FPGA_GPIO(0) <=  inst7_uart_tx;

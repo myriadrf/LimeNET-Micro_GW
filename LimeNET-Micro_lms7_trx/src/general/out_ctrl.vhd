@@ -1,13 +1,13 @@
 -- ----------------------------------------------------------------------------
--- FILE:          FX3_LED_ctrl.vhd
--- DESCRIPTION:   FX3 led status module
--- DATE:          5:03 PM Monday, May 7, 2018
+-- FILE:          out_ctrl.vhd
+-- DESCRIPTION:   output control module
+-- DATE:          11:27 AM Friday, January 11, 2019
 -- AUTHOR(s):     Lime Microsystems
 -- REVISIONS:
 -- ----------------------------------------------------------------------------
 
 -- ----------------------------------------------------------------------------
---NOTES:
+-- NOTES:
 -- ----------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
@@ -16,36 +16,35 @@ use ieee.numeric_std.all;
 -- ----------------------------------------------------------------------------
 -- Entity declaration
 -- ----------------------------------------------------------------------------
-entity FX3_LED_ctrl is
-   port (
-      --input ports 
-      ctrl_led_g     : in std_logic;
-      ctrl_led_r     : in std_logic;
-      HW_VER         : in std_logic_vector(3 downto 0);
-      led_ctrl       : in std_logic_vector(2 downto 0);
-      --output ports 
-      led_g          : out std_logic;
-      led_r          : out std_logic
+entity out_ctrl is
+   generic(
+      active_lvl   : std_logic := '0'  -- Active level of output
    );
-end FX3_LED_ctrl;
+   port (
+
+      ovrd_en  : in std_logic;
+      ovrd_val : in std_logic;
+      input    : in std_logic;
+      output   : out std_logic
+
+   );
+end out_ctrl;
 
 -- ----------------------------------------------------------------------------
 -- Architecture
 -- ----------------------------------------------------------------------------
-architecture arch of FX3_LED_ctrl is
+architecture arch of out_ctrl is
 --declare signals,  components here
-   signal led_g_def  : std_logic;
-   signal led_r_def  : std_logic;
-  
+signal output_tmp  : std_logic;
+
+
 begin
-
-
-   led_g_def <= ctrl_led_g;
-   led_r_def <= ctrl_led_r;
-
-   led_g <= led_g_def when unsigned(HW_VER)>=3 and unsigned(HW_VER)< 15 else '0';
-   led_r <= led_r_def when unsigned(HW_VER)>=3 and unsigned(HW_VER)< 15 else '0';
-  
-end arch;
+   
+   -- MUX between input and override value
+   output_tmp  <= input       when ovrd_en='0'        else ovrd_val;
+   -- Output active level 
+   output      <= output_tmp  when active_lvl = '1'   else not output_tmp;
+ 
+end arch;   
 
 
