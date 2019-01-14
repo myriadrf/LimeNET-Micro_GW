@@ -584,7 +584,7 @@ begin
       Si5351C_clk_6     => '0',
       Si5351C_clk_7     => '0',
       LMK_CLK           => LMK_CLK,
-      ADF_MUXOUT        => '0',    
+      ADF_MUXOUT        => ADF_MUXOUT,    
    
       -- To configuration memory
       to_tstcfg         => inst0_to_tstcfg,
