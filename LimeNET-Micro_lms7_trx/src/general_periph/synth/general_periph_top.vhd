@@ -68,7 +68,8 @@ entity general_periph_top is
       led4_clk             : in     std_logic;
       led4_adf_muxout      : in     std_logic;
       led4_dac_ss          : in     std_logic;
-      led4_adf_ss          : in     std_logic;   
+      led4_adf_ss          : in     std_logic;
+      led4_gnss_en         : in     std_logic;
       
       
       -- LED5 ( GNSS status )
@@ -133,6 +134,9 @@ signal led2_g,led2_r                : std_logic;
 signal led3_g,led3_r                : std_logic;
 signal led4_g,led4_r                : std_logic;
 signal led5_g,led5_r                : std_logic;
+
+signal led4_ctrl_out_g              : std_logic;
+signal led4_crtl_out_r              : std_logic;
 
 begin
    
@@ -244,6 +248,7 @@ begin
       led_r          => led4_r
    );
    
+   
    FPGA_LED4_Output_ctrl : entity work.led_ctrl
    generic map(
       active_lvl     => led4_active_lvl
@@ -254,9 +259,12 @@ begin
       ovrd_val_r     => led4_ctrl(2),
       input_g        => led4_g,
       input_r        => led4_r,
-      output_g       => led4_out_g,
-      output_r       => led4_out_r
+      output_g       => led4_ctrl_out_g,
+      output_r       => led4_crtl_out_r
       );
+      
+   led4_out_g <= led4_ctrl_out_g when led4_gnss_en='0' else led4_active_lvl;
+   led4_out_r <= led4_crtl_out_r when led4_gnss_en='0' else led4_active_lvl;
       
 -- ----------------------------------------------------------------------------
 -- FPGA LED 5 control module
