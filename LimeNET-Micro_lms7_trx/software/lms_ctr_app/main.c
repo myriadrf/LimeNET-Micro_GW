@@ -141,14 +141,14 @@ void Configure_LM75(void)
 	spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 0);
 	spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x02, 0);				// Pointer = THYST register
 	//spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 1);
-	spirez = I2C_write(I2C_OPENCORES_0_BASE, 45, 0);				// Set THYST H
+	spirez = I2C_write(I2C_OPENCORES_0_BASE, 35, 0);				// Set THYST H (OS output turn OFF temperature=35 C)
 	spirez = I2C_write(I2C_OPENCORES_0_BASE,  0, 1);				// Set THYST L
 
 	// TOS configuration
 	spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 0);
 	spirez = I2C_write(I2C_OPENCORES_0_BASE, 0x03, 0);				// Pointer = TOS register
 	//spirez = I2C_start(I2C_OPENCORES_0_BASE, LM75_I2C_ADDR, 1);
-	spirez = I2C_write(I2C_OPENCORES_0_BASE, 55, 0);				// Set TOS H
+	spirez = I2C_write(I2C_OPENCORES_0_BASE, 45, 0);				// Set TOS H (OS output turn ON temperature=45 C)
 	spirez = I2C_write(I2C_OPENCORES_0_BASE,  0, 1);				// Set TOS L
 
 }
