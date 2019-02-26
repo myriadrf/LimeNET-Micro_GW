@@ -488,7 +488,7 @@ Disassembly of section .text:
   100278:	01001340 	call	100134 <I2C_write>
   10027c:	8009883a 	mov	r4,r16
   100280:	000d883a 	mov	r6,zero
-  100284:	01400b44 	movi	r5,45
+  100284:	014008c4 	movi	r5,35
   100288:	01001340 	call	100134 <I2C_write>
   10028c:	880d883a 	mov	r6,r17
   100290:	8009883a 	mov	r4,r16
@@ -504,7 +504,7 @@ Disassembly of section .text:
   1002b8:	01001340 	call	100134 <I2C_write>
   1002bc:	8009883a 	mov	r4,r16
   1002c0:	000d883a 	mov	r6,zero
-  1002c4:	01400dc4 	movi	r5,55
+  1002c4:	01400b44 	movi	r5,45
   1002c8:	01001340 	call	100134 <I2C_write>
   1002cc:	880d883a 	mov	r6,r17
   1002d0:	000b883a 	mov	r5,zero
@@ -2689,11 +2689,11 @@ Disassembly of section .text:
   1023e4:	2000683a 	jmp	r4
   1023e8:	001025cc 	andi	zero,zero,16535
   1023ec:	00102450 	cmplti	zero,zero,16529
-  1023f0:	001025c0 	call	1025c <__reset-0xefda4>
+  1023f0:	001025c0 	call	1025c <__alt_mem_onchip_flash_0_data-0xefda4>
   1023f4:	0010243c 	xorhi	zero,zero,16528
-  1023f8:	001025c0 	call	1025c <__reset-0xefda4>
+  1023f8:	001025c0 	call	1025c <__alt_mem_onchip_flash_0_data-0xefda4>
   1023fc:	00102598 	cmpnei	zero,zero,16534
-  102400:	001025c0 	call	1025c <__reset-0xefda4>
+  102400:	001025c0 	call	1025c <__alt_mem_onchip_flash_0_data-0xefda4>
   102404:	0010243c 	xorhi	zero,zero,16528
   102408:	00102450 	cmplti	zero,zero,16529
   10240c:	00102450 	cmplti	zero,zero,16529
@@ -2966,15 +2966,15 @@ Disassembly of section .text:
   102830:	001029c4 	movi	zero,16551
   102834:	00102884 	movi	zero,16546
   102838:	00102884 	movi	zero,16546
-  10283c:	00102880 	call	10288 <__reset-0xefd78>
+  10283c:	00102880 	call	10288 <__alt_mem_onchip_flash_0_data-0xefd78>
   102840:	001029a8 	cmpgeui	zero,zero,16550
   102844:	001029a8 	cmpgeui	zero,zero,16550
   102848:	00102994 	movui	zero,16550
-  10284c:	00102880 	call	10288 <__reset-0xefd78>
+  10284c:	00102880 	call	10288 <__alt_mem_onchip_flash_0_data-0xefd78>
   102850:	001029a8 	cmpgeui	zero,zero,16550
   102854:	00102994 	movui	zero,16550
   102858:	001029a8 	cmpgeui	zero,zero,16550
-  10285c:	00102880 	call	10288 <__reset-0xefd78>
+  10285c:	00102880 	call	10288 <__alt_mem_onchip_flash_0_data-0xefd78>
   102860:	001029b4 	movhi	zero,16550
   102864:	001029b4 	movhi	zero,16550
   102868:	001029b4 	movhi	zero,16550
@@ -5318,7 +5318,7 @@ Disassembly of section .text:
   104b98:	d9400015 	stw	r5,0(sp)
   104b9c:	d9800115 	stw	r6,4(sp)
   104ba0:	d9c00215 	stw	r7,8(sp)
-  104ba4:	00000000 	call	0 <__reset-0x100000>
+  104ba4:	00000000 	call	0 <__alt_mem_onchip_flash_0_data-0x100000>
   104ba8:	d9400017 	ldw	r5,0(sp)
   104bac:	d9800117 	ldw	r6,4(sp)
   104bb0:	d9c00217 	ldw	r7,8(sp)
@@ -5402,7 +5402,7 @@ Disassembly of section .text:
   104ce0:	10003226 	beq	r2,zero,104dac <__call_exitprocs+0x178>
   104ce4:	a009883a 	mov	r4,r20
   104ce8:	98800015 	stw	r2,0(r19)
-  104cec:	00000000 	call	0 <__reset-0x100000>
+  104cec:	00000000 	call	0 <__alt_mem_onchip_flash_0_data-0x100000>
   104cf0:	9d000017 	ldw	r20,0(r19)
   104cf4:	a03fe41e 	bne	r20,zero,104c88 <_gp+0xffefc490>
   104cf8:	dfc00a17 	ldw	ra,40(sp)
