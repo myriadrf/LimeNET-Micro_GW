@@ -55,7 +55,7 @@ entity lms7_trx_top is
       -- ----------------------------------------------------------------------------
       -- External GND pin for reset
       --EXT_GND           : in     std_logic;
-      -- ---------------------------------------------------------------------what SDR board are you using, and h-------
+      -- ----------------------------------------------------------------------------
       -- Clock sources
          -- Reference clock, coming from LMK clock buffer.
       LMK_CLK           : in     std_logic;
@@ -85,27 +85,14 @@ entity lms7_trx_top is
       RAPI_SPI0_MOSI    : in     std_logic;
       RAPI_SPI0_MISO    : out    std_logic;
       RAPI_SPI0_CE0     : in     std_logic;
-      --RAPI_SPI0_CE1     : in     std_logic;
          -- SPI1
       RAPI_SPI1_SCLK    : in     std_logic;
       RAPI_SPI1_MOSI    : in     std_logic;
       RAPI_SPI1_MISO    : out    std_logic;
-      RAPI_SPI1_CE0     : in     std_logic;
-      --RAPI_SPI1_CE1     : in     std_logic;
-      --RAPI_SPI1_CE2     : in     std_logic;      
-         -- UART
-      --RAPI_UART1_RX     : out    std_logic;
-      --RAPI_UART1_TX     : in     std_logic;     
-         -- I2C
-      --RAPI_I2C1_SCL     : inout  std_logic;       
-      --RAPI_I2C1_SDA     : inout  std_logic;
-         -- MISC
-      --RAPI_ACT          : in     std_logic;
-      --RAPI_RUN          : in     std_logic; -- Shift register
+      RAPI_SPI1_CE0     : in     std_logic;   
+         -- Other
       RAPI_EMMC_EN      : in     std_logic;
       RAPI_GPIO12       : out    std_logic;
-      --RAPI_GPIO13       : in     std_logic;
-      --RAPI_GPIO27       : in     std_logic;
       -- FTDI (USB3)
          -- Clock source
       FT_CLK            : in     std_logic;
@@ -121,18 +108,12 @@ entity lms7_trx_top is
       FT_RDn            : out    std_logic;
       -- ----------------------------------------------------------------------------
       -- Ethernet
-      --ETH_NRESET        : out    std_logic; -- Shift register
-      --ETH_LED1          : out    std_logic; -- Shift register
-      --ETH_LED2          : out    std_logic; -- Shift register
       ETH_GPIO0         : in     std_logic;  -- Weak Pull-UP enabled
       ETH_GPIO1         : in     std_logic;  -- Weak Pull-UP enabled
       ETH_GPIO2         : in     std_logic;  -- Weak Pull-UP enabled
-      --ETH_AUTOMDIX_EN   : out    std_logic; -- Shift register
       -- ----------------------------------------------------------------------------
       -- GNSS
       GNSS_TPULSE       : in     std_logic;
-      --GNSS_DDC_SDA      : inout  std_logic;
-      --GNSS_DDC_SCL      : inout  std_logic;
       GNSS_UART_TX      : in     std_logic;
       GNSS_UART_RX      : out    std_logic:='1';
       -- ----------------------------------------------------------------------------
@@ -142,15 +123,6 @@ entity lms7_trx_top is
       FPGA_SPI_MOSI     : out    std_logic;
       FPGA_SPI_MISO     : in     std_logic;      
       FPGA_SPI_LMS_SS   : out    std_logic;
-      --FPGA_SPI_ADF_SS   : out    std_logic;  -- Shift register
-      --FPGA_SPI_DAC_SS   : out    std_logic;  -- Shift register
-         -- FPGA_QSPI
---      FPGA_QSPI_SCLK    : out    std_logic;
---      FPGA_QSPI_IO0     : out    std_logic;
---      FPGA_QSPI_IO1     : in     std_logic;
---      FPGA_QSPI_IO2     : out    std_logic;
---      FPGA_QSPI_IO3     : out    std_logic;
---      FPGA_QSPI_FLASH_SS: out    std_logic;
          -- FPGA I2C
       FPGA_I2C_SCL      : inout  std_logic;
       FPGA_I2C_SDA      : inout  std_logic;
@@ -161,18 +133,7 @@ entity lms7_trx_top is
       SR_DIN            : out    std_logic;
       SR_LATCH          : out    std_logic; 
       -- WIFI module
-      WIFI_PIO5         : inout  std_logic;
-         -- LEDs          
-      --FPGA_LED1_R       : out    std_logic;
-      --FPGA_LED1_G       : out    std_logic;
-      --FPGA_LED2_R       : out    std_logic;
-      --FPGA_LED2_G       : out    std_logic;
-      --FPGA_LED3_R       : out    std_logic;
-      --FPGA_LED3_G       : out    std_logic;
-      --FPGA_LED4_R       : out    std_logic;
-      --FPGA_LED4_G       : out    std_logic;
-      --FPGA_LED5_R       : out    std_logic;
-      --FPGA_LED5_G       : out    std_logic;      
+      WIFI_PIO5         : inout  std_logic;   
          -- Button
       FPGA_BTN          : in     std_logic;
          -- Switch
@@ -187,9 +148,6 @@ entity lms7_trx_top is
       FAN_CTRL          : out    std_logic;
          -- Phase detector
       ADF_MUXOUT        : in     std_logic;
-         -- Power
-      --FPGA_EN_REG       : out    std_logic;
-      --FPGA_PWR_MON      : in     std_logic;
          -- Bill Of material and hardware version 
       BOM_VER           : in     std_logic_vector(3 downto 0);
       HW_VER            : in     std_logic_vector(2 downto 0)
@@ -868,71 +826,17 @@ begin
    -- FPGA_SPI (LMS, DAC, ADF, FLASH) 
    FPGA_SPI_SCLK    <=  inst0_spi_1_SCLK when inst0_spi_1_SS_n(0) = '0' else inst0_spi_0_SCLK;                                  
    FPGA_SPI_MOSI    <=  inst0_spi_1_MOSI when inst0_spi_1_SS_n(0) = '0' else inst0_spi_0_MOSI;                      
-   FPGA_SPI_LMS_SS  <=  inst0_spi_0_SS_n(0); --RAPI_SPI1_CE1;
-   int_FPGA_SPI_DAC_SS  <= inst0_spi_0_SS_n(2);
+   FPGA_SPI_LMS_SS  <=  inst0_spi_0_SS_n(0);
    
-   int_FPGA_SPI_ADF_SS  <= inst0_spi_0_SS_n(3);
-  
+   int_FPGA_SPI_DAC_SS  <= inst0_spi_0_SS_n(2);  
+   int_FPGA_SPI_ADF_SS  <= inst0_spi_0_SS_n(3);  
    int_FPGA_SPI_FLASH_SS<= inst0_spi_1_SS_n(0); 
    
-   
-   -- FPGA_SPI (DAC, ADF)
-      --When VCTCXO tamer is enabled, DAC is controlled from NIOS. 
-      --Workaround for negative polarity clock for DAC when controlled from RAPI
-      --Positive polarity 
---   FPGA_SPI_SCLK    <= inst0_spi_0_SCLK   when inst0_spi_0_SS_n(2) = '0' else
---                        not RAPI_SPI1_SCLK when RAPI_SPI1_CE0 = '0' else 
---                        RAPI_SPI1_SCLK;
---                                                                     
---   FPGA_SPI_MOSI    <= inst0_spi_0_MOSI  when inst0_spi_0_SS_n(2) = '0' else 
---                        RAPI_SPI1_MOSI;
-                        
-   --FPGA_SPI_DAC_SS  <= RAPI_SPI1_CE0     when inst7_en = '0' else 
-   --                     inst0_spi_0_SS_n(2);
-   
-   --FPGA_SPI_ADF_SS  <= RAPI_SPI1_CE3_int; 
-   
-   -- FPGA_QSPI (Flash)
---   FPGA_QSPI_SCLK    <= inst0_spi_1_SCLK;
---   FPGA_QSPI_IO0     <= inst0_spi_1_MOSI;
---   FPGA_QSPI_IO2     <= '1';
---   FPGA_QSPI_IO3     <= '1';
---   FPGA_QSPI_FLASH_SS<= inst0_spi_1_SS_n(0);
-   
-   -- LMS MISC
-   --LMS_RESET         <= inst0_from_fpgacfg.LMS1_RESET;-- AND inst0_lms_ctr_gpio(0);
-   --LMS_TXEN          <= inst0_from_fpgacfg.LMS1_TXEN;
-   --LMS_RXEN          <= inst0_from_fpgacfg.LMS1_RXEN;
-   --LMS_CORE_LDO_EN   <= inst0_from_fpgacfg.LMS1_CORE_LDO_EN;
    LMS_TXNRX1        <= inst0_from_fpgacfg.LMS1_TXNRX1;
    LMS_TXNRX2        <= inst0_from_fpgacfg.LMS1_TXNRX2;
 
-   -- Ethernet
-   --ETH_NRESET        <= '1';
-   --ETH_AUTOMDIX_EN   <= '1';  
-   
-   -- Instantiating OPNDRN
---   inst0_OPNDRN : OPNDRN
---   port map (a_in => ETH_GPIO0, a_out => ETH_LED1);
-   
---   inst1_OPNDRN : OPNDRN
---   port map (a_in => ETH_GPIO1, a_out => ETH_LED2);
-   
-   -- LEDS
-   --FPGA_LED1_R <= RAPI_EMMC_EN;     -- Raspberry activity
-   --FPGA_LED1_G <= NOT RAPI_EMMC_EN;
-   --FPGA_LED2_R <= inst4_led1_r;     -- FPGA PLL lock
-   --FPGA_LED2_G <= inst4_led1_g;
-   --FPGA_LED3_R <= inst7_fpga_led_r; -- VCTCXO tamer status
-   --FPGA_LED3_G <= inst7_fpga_led_g; 
-   --FPGA_LED4_R <= ETH_GPIO1;        -- Ethernet status (active low)
-   --FPGA_LED4_G <= not ETH_GPIO1;
-   --FPGA_LED5_R <= ETH_GPIO2;
-   --FPGA_LED5_G <= not ETH_GPIO2;
-
-   
-   --Testing ()
-   FPGA_GPIO(0) <=  inst7_uart_tx;
+   --Testing
+   FPGA_GPIO(0)      <=  inst7_uart_tx;
    
    
    
