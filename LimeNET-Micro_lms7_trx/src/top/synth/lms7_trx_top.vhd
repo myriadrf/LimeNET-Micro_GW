@@ -80,6 +80,7 @@ entity lms7_trx_top is
       --LMS_CORE_LDO_EN   : out    std_logic;   -- Shift register
       -- ----------------------------------------------------------------------------
       -- Raspberry
+      RAPI_GPCLK1       : in     std_logic;
          --SPI0
       RAPI_SPI0_SCLK    : in     std_logic;
       RAPI_SPI0_MOSI    : in     std_logic;
@@ -799,14 +800,14 @@ begin
    inst9_data(21) <= '1'; -- FT_RESETn        
    inst9_data(22) <= '1'; -- RAPI_RUN         
    inst9_data(23) <= '0'; -- -                  
-   inst9_data(24) <= inst0_from_fpgacfg.GPIO(12);  -- RFSW_TX_V1
-   inst9_data(25) <= inst0_from_fpgacfg.GPIO(13);  -- RFSW_TX_V2
-   inst9_data(26) <= inst0_from_fpgacfg.GPIO(8);   -- RFSW_RX_V1
-   inst9_data(27) <= inst0_from_fpgacfg.GPIO(9);   -- RFSW_RX_V2
-   inst9_data(28) <= '0'; -- -
-   inst9_data(29) <= '0'; -- - 
-   inst9_data(30) <= '0'; -- - 
-   inst9_data(31) <= '0'; -- -
+   inst9_data(24) <= inst0_from_fpgacfg.GPIO(12); -- RFSW_TX_V1
+   inst9_data(25) <= inst0_from_fpgacfg.GPIO(13); -- RFSW_TX_V2
+   inst9_data(26) <= inst0_from_fpgacfg.GPIO(14); -- RFSW_TXO_V1
+   inst9_data(27) <= inst0_from_fpgacfg.GPIO(0);  -- RFSW_TRXA_V1
+   inst9_data(28) <= inst0_from_fpgacfg.GPIO(1);  -- RFSW_TRXB_V1
+   inst9_data(29) <= inst0_from_fpgacfg.GPIO(10); -- RFSW_RXI_V1 
+   inst9_data(30) <= inst0_from_fpgacfg.GPIO(8);  -- RFSW_RX_V1
+   inst9_data(31) <= inst0_from_fpgacfg.GPIO(9);  -- RFSW_RX_V2
 
    inst9_IC_74HC595_top : entity work.IC_74HC595_top
    port map(

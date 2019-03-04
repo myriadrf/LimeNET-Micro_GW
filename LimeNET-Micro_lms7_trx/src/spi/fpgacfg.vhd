@@ -209,7 +209,7 @@ begin
          mem(20)  <= "0000000000000011";  --  0 free, (Reserved LMS control)
          mem(21)  <= "0000000000000000";  --  0 free, (Reserved LMS control)
          mem(22)  <= "0000000000000000";  --  0 free, (Reserved LMS control)
-         mem(23)  <= "0001000101000100";  --  0 free, (Reserved), GPIO[6:0]
+         mem(23)  <= "0101011000000010";  --  0 free, (Reserved), GPIO[6:0]
          mem(24)  <= "0000000000000000";  -- 16 free, (Reserved) 
          mem(25)  <= "0000000000000000";  -- 16 free, (Reserved)
          mem(26)  <= "0000000000000000";  --  0 free, Reserved, FPGA_LED5_G, FPGA_LED5_R,FPGA_LED5_OVRD,
