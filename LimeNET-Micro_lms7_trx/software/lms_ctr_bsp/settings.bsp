@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Feb 6, 2019 2:51:37 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1549457497012</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Mar 5, 2019 4:14:40 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1551795280079</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>G:\working_dir\altera\LimeNET-Micro\LimeNET-Micro_lms7_trx\LimeNET-Micro_lms7_trx\software\lms_ctr_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\lms_ctr.sopcinfo</SopcDesignFile>
