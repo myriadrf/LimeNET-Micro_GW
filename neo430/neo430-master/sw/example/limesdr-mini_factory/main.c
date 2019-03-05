@@ -260,11 +260,11 @@ int main(void)
   USI_CT = (1<<USI_CT_EN);
 
   // intro text
-  uart_br_print("\nLimeSDR-Mini Factory Firmware Version: "xstr(FW_VER)"\n");
+  uart_br_print("\nLimeNET-Micro Factory Firmware Version: "xstr(FW_VER)"\n");
 	
 	
 	// I2C initialiazation
-	I2C_init(I2C_OPENCORES_0_BASE, 40000000, 100000);
+	I2C_init(I2C_OPENCORES_0_BASE, 30720000, 100000);
 	//uart_br_print("\nI2C Initialized.\n");
 	
 	

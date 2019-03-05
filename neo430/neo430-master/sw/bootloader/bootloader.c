@@ -140,7 +140,7 @@ int  main(void) {
   eint(); // enable global interrupts
 	
 	// I2C initialiazation
-	I2C_init(I2C_OPENCORES_0_BASE, 40000000, 100000);
+	I2C_init(I2C_OPENCORES_0_BASE, 30720000, 100000);
 
 
   // ****************************************************************
