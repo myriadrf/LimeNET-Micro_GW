@@ -183,7 +183,7 @@ begin
   generic map 
 	(
     -- general configuration --
-    CLOCK_SPEED => 40000000,         -- main clock in Hz
+    CLOCK_SPEED => 30720000,         -- main clock in Hz
     IMEM_SIZE   => 4*1024,            -- internal IMEM size in bytes, max 32kB (default=4kB)
     DMEM_SIZE   => 2*1024,            -- internal DMEM size in bytes, max 28kB (default=2kB)
     -- additional configuration --

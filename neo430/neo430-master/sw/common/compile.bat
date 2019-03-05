@@ -28,7 +28,7 @@
 
 @REM ----------------------USER CONFIGURATION----------------------
 @REM Path of compiler binaries:
-@if "%MSP430GCC_BIN_PATH%" == "" set MSP430GCC_BIN_PATH=C:\msp430-gcc-6.4.0.32_win32\bin
+@if "%MSP430GCC_BIN_PATH%" == "" set MSP430GCC_BIN_PATH=C:\msp430-gcc-7.3.2.154_win64\bin
 
 @REM Compiler effort (-Os = optimize for size)
 @set EFFORT=-Os
