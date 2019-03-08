@@ -15,10 +15,10 @@ package revisions is
 	constant MINOR_REV : INTEGER := 1;
 	constant BETA_REV : INTEGER := 1;
 	constant COMPILE_REV : INTEGER := 0;
-	constant COMPILE_YEAR_STAMP : INTEGER := 18;
-	constant COMPILE_MONTH_STAMP : INTEGER := 12;
-	constant COMPILE_DAY_STAMP : INTEGER := 13;
-	constant COMPILE_HOUR_STAMP : INTEGER := 15;
+	constant COMPILE_YEAR_STAMP : INTEGER := 19;
+	constant COMPILE_MONTH_STAMP : INTEGER := 03;
+	constant COMPILE_DAY_STAMP : INTEGER := 08;
+	constant COMPILE_HOUR_STAMP : INTEGER := 09;
 	
 	constant MAGIC_NUM : STD_LOGIC_VECTOR(31 downto 0) := X"D8A5F009";
    constant BOARD_ID : STD_LOGIC_VECTOR(15 downto 0) := X"0016"; -- LimeNET-Micro

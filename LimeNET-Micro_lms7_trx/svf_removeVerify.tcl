@@ -1,7 +1,7 @@
 proc RemoveVerification {} {
 
-   set in  [open ../LimeNET-Micro_bitstreams/LimeNET-Micro_lms7_trx_HW_2.0_org.svf r]
-   set out [open ../LimeNET-Micro_bitstreams/LimeNET-Micro_lms7_trx_HW_2.0.svf w]
+   set in  [open ../LimeNET-Micro_bitstreams/LimeNET-Micro_lms7_trx_HW_2.1_org.svf r]
+   set out [open ../LimeNET-Micro_bitstreams/LimeNET-Micro_lms7_trx_HW_2.1.svf w]
    set verify 0
    set lastline foobar
 
