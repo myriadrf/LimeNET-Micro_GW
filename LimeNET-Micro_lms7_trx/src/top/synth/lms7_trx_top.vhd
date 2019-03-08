@@ -515,8 +515,7 @@ begin
       EP82_wdata     => inst0_exfifo_of_d,
       EP82_wfull     => inst2_EP82_wfull,
       --stream endpoint fifo PC->FPGA
-      EP03_aclrn_0   => inst0_from_fpgacfg.rx_en,
-      EP03_aclrn_1   => inst6_tx_in_pct_reset_n_req,
+      EP03_aclrn     => inst0_from_fpgacfg.rx_en,
       EP03_rdclk     => inst1_pll_c1,
       EP03_rd        => inst6_tx_in_pct_rdreq,
       EP03_rdata     => inst2_EP03_rdata,
@@ -688,7 +687,6 @@ begin
       tx_DIQ                  => LMS_DIQ1_D,
       tx_fsync                => LMS_ENABLE_IQSEL1,
       --fifo ports
-      tx_in_pct_reset_n_req   => inst6_tx_in_pct_reset_n_req,
       tx_in_pct_rdreq         => inst6_tx_in_pct_rdreq,
       tx_in_pct_data          => inst2_EP03_rdata,
       tx_in_pct_rdempty       => inst2_EP03_rempty,
@@ -786,12 +784,12 @@ begin
    
    inst9_data( 8) <= FPGA_LED5_R;    
    inst9_data( 9) <= FPGA_LED5_G;    
-   inst9_data(10) <= eth_led1;               -- ETH_LED1       
-   inst9_data(11) <= eth_led2;               -- ETH_LED2       
+   inst9_data(10) <= eth_led1;   -- ETH_LED1       
+   inst9_data(11) <= eth_led2;   -- ETH_LED2       
    inst9_data(12) <= inst0_from_fpgacfg.LMS1_RESET AND inst0_lms_ctr_gpio(0); -- LMS_RESET      
-   inst9_data(13) <= inst0_from_fpgacfg.LMS1_CORE_LDO_EN;   -- LMS_CORE_LDO_EN
-   inst9_data(14) <= inst0_from_fpgacfg.LMS1_RXEN;          -- LMS_RXEN       
-   inst9_data(15) <= inst0_from_fpgacfg.LMS1_TXEN;          -- LMS_TXEN       
+   inst9_data(13) <= inst0_from_fpgacfg.LMS1_CORE_LDO_EN;                     -- LMS_CORE_LDO_EN
+   inst9_data(14) <= inst0_from_fpgacfg.LMS1_RXEN;                            -- LMS_RXEN       
+   inst9_data(15) <= inst0_from_fpgacfg.LMS1_TXEN;                            -- LMS_TXEN       
    inst9_data(16) <= int_FPGA_SPI_ADF_SS;    -- FPGA_SPI_ADF_SS  
    inst9_data(17) <= int_FPGA_SPI_DAC_SS;    -- FPGA_SPI_DAC_SS  
    inst9_data(18) <= int_FPGA_SPI_FLASH_SS;  -- FPGA_SPI_FLASH_SS
