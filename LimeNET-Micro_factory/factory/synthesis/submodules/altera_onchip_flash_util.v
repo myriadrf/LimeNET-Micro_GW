@@ -1,4 +1,4 @@
-// (C) 2001-2017 Intel Corporation. All rights reserved.
+// (C) 2001-2018 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
 // files from any of the foregoing (including device programming or simulation 
@@ -201,15 +201,17 @@ module altera_onchip_flash_convert_address (
 
     parameter FLASH_ADDR_WIDTH = 23;
     parameter ADDR_RANGE1_END_ADDR = 1;
+    parameter ADDR_RANGE2_END_ADDR = 1;
     parameter ADDR_RANGE1_OFFSET = 1;
     parameter ADDR_RANGE2_OFFSET = 1;
+    parameter ADDR_RANGE3_OFFSET = 1;
 
     input [FLASH_ADDR_WIDTH-1:0] address;
     output [FLASH_ADDR_WIDTH-1:0] flash_addr;
 
-    assign flash_addr = (address <= ADDR_RANGE1_END_ADDR[FLASH_ADDR_WIDTH-1:0]) ? 
-        (address + ADDR_RANGE1_OFFSET[FLASH_ADDR_WIDTH-1:0]) : 
-        (address + ADDR_RANGE2_OFFSET[FLASH_ADDR_WIDTH-1:0]);
+    assign flash_addr = (address <= ADDR_RANGE1_END_ADDR[FLASH_ADDR_WIDTH-1:0]) ? (address + ADDR_RANGE1_OFFSET[FLASH_ADDR_WIDTH-1:0]) : 
+                        (address <= ADDR_RANGE2_END_ADDR[FLASH_ADDR_WIDTH-1:0]) ? (address + ADDR_RANGE2_OFFSET[FLASH_ADDR_WIDTH-1:0]) :
+                        (address + ADDR_RANGE3_OFFSET[FLASH_ADDR_WIDTH-1:0]);
     
 endmodule
 

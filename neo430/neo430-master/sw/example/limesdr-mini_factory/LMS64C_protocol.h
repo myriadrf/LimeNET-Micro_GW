@@ -32,6 +32,12 @@ enum eLMS_DEV {
 	LMS_DEV_QSPARK, //2x LMS
 	LMS_DEV_ULIMESDR,
 	LMS_DEV_USTREAM, //with expansion booards (uMyriad)
+    LMS_DEV_LIMESDR_SONY_PA, //stand alone board with Sony PAs, tuners
+	LMS_DEV_LIMESDR_USB_SP,
+	LMS_DEV_LMS7002M_ULTIMATE_EVB,
+	LMS_DEV_LIMENET_MICRO, //Raspberry Pi CM3(L), Ethernet, MAX10, LMS7002,
+	LMS_DEV_LIMESDR_CORE_SDR, //LMS7002, Intel Cyclone 4, RAM, GNSS
+	LMS_DEV_LIMESDR_CORE_HE, //PA board
 	
 	};
 

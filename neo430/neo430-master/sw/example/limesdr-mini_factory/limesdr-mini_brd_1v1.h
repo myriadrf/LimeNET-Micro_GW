@@ -13,15 +13,15 @@
 
 #include "LMS64C_protocol.h"
 
-#pragma message ("**** limesdr-mini_brd_1v1 ****")
+#pragma message ("**** limenet-micro_brd_2v1 ****")
 
 //I2C devices
 #define   LM75_I2C_ADDR		0x48 //0x90
 #define EEPROM_I2C_ADDR		0x50 //0xA2
 
 //get info
-#define DEV_TYPE			LMS_DEV_ULIMESDR
-#define HW_VER				0
+#define DEV_TYPE			LMS_DEV_LIMENET_MICRO
+#define HW_VER				3
 #define EXP_BOARD			EXP_BOARD_UNSUPPORTED
 
 //FPGA Cyclone IV GX (EP4GX30F23C7N) bitstream (RBF) size in bytes

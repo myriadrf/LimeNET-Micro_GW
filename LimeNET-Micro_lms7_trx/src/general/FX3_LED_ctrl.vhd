@@ -36,19 +36,12 @@ architecture arch of FX3_LED_ctrl is
 --declare signals,  components here
    signal led_g_def  : std_logic;
    signal led_r_def  : std_logic;
-   
-   signal led_g_ovr  : std_logic;
-   signal led_r_ovr  : std_logic;
-
-
   
 begin
 
-   led_g_ovr <= '1' when led_ctrl(2)='1' and led_ctrl(1)='0' else '0';
-   led_r_ovr <= '1' when led_ctrl(1)='1' and led_ctrl(2)='0' else '0';
 
-   led_g_def <= ctrl_led_g when led_ctrl(0)='0' else led_g_ovr;
-   led_r_def <= ctrl_led_r when led_ctrl(0)='0' else led_r_ovr;
+   led_g_def <= ctrl_led_g;
+   led_r_def <= ctrl_led_r;
 
    led_g <= led_g_def when unsigned(HW_VER)>=3 and unsigned(HW_VER)< 15 else '0';
    led_r <= led_r_def when unsigned(HW_VER)>=3 and unsigned(HW_VER)< 15 else '0';

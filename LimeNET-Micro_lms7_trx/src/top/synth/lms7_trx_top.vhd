@@ -55,7 +55,7 @@ entity lms7_trx_top is
       -- ----------------------------------------------------------------------------
       -- External GND pin for reset
       --EXT_GND           : in     std_logic;
-      -- ---------------------------------------------------------------------what SDR board are you using, and h-------
+      -- ----------------------------------------------------------------------------
       -- Clock sources
          -- Reference clock, coming from LMK clock buffer.
       LMK_CLK           : in     std_logic;
@@ -80,32 +80,20 @@ entity lms7_trx_top is
       --LMS_CORE_LDO_EN   : out    std_logic;   -- Shift register
       -- ----------------------------------------------------------------------------
       -- Raspberry
+      RAPI_GPCLK1       : in     std_logic;
          --SPI0
       RAPI_SPI0_SCLK    : in     std_logic;
       RAPI_SPI0_MOSI    : in     std_logic;
       RAPI_SPI0_MISO    : out    std_logic;
       RAPI_SPI0_CE0     : in     std_logic;
-      --RAPI_SPI0_CE1     : in     std_logic;
          -- SPI1
       RAPI_SPI1_SCLK    : in     std_logic;
       RAPI_SPI1_MOSI    : in     std_logic;
       RAPI_SPI1_MISO    : out    std_logic;
-      RAPI_SPI1_CE0     : in     std_logic;
-      --RAPI_SPI1_CE1     : in     std_logic;
-      --RAPI_SPI1_CE2     : in     std_logic;      
-         -- UART
-      --RAPI_UART1_RX     : out    std_logic;
-      --RAPI_UART1_TX     : in     std_logic;     
-         -- I2C
-      --RAPI_I2C1_SCL     : inout  std_logic;       
-      --RAPI_I2C1_SDA     : inout  std_logic;
-         -- MISC
-      --RAPI_ACT          : in     std_logic;
-      --RAPI_RUN          : in     std_logic; -- Shift register
+      RAPI_SPI1_CE0     : in     std_logic;   
+         -- Other
       RAPI_EMMC_EN      : in     std_logic;
       RAPI_GPIO12       : out    std_logic;
-      --RAPI_GPIO13       : in     std_logic;
-      --RAPI_GPIO27       : in     std_logic;
       -- FTDI (USB3)
          -- Clock source
       FT_CLK            : in     std_logic;
@@ -121,18 +109,12 @@ entity lms7_trx_top is
       FT_RDn            : out    std_logic;
       -- ----------------------------------------------------------------------------
       -- Ethernet
-      --ETH_NRESET        : out    std_logic; -- Shift register
-      --ETH_LED1          : out    std_logic; -- Shift register
-      --ETH_LED2          : out    std_logic; -- Shift register
       ETH_GPIO0         : in     std_logic;  -- Weak Pull-UP enabled
       ETH_GPIO1         : in     std_logic;  -- Weak Pull-UP enabled
       ETH_GPIO2         : in     std_logic;  -- Weak Pull-UP enabled
-      --ETH_AUTOMDIX_EN   : out    std_logic; -- Shift register
       -- ----------------------------------------------------------------------------
       -- GNSS
       GNSS_TPULSE       : in     std_logic;
-      --GNSS_DDC_SDA      : inout  std_logic;
-      --GNSS_DDC_SCL      : inout  std_logic;
       GNSS_UART_TX      : in     std_logic;
       GNSS_UART_RX      : out    std_logic:='1';
       -- ----------------------------------------------------------------------------
@@ -142,15 +124,6 @@ entity lms7_trx_top is
       FPGA_SPI_MOSI     : out    std_logic;
       FPGA_SPI_MISO     : in     std_logic;      
       FPGA_SPI_LMS_SS   : out    std_logic;
-      --FPGA_SPI_ADF_SS   : out    std_logic;  -- Shift register
-      --FPGA_SPI_DAC_SS   : out    std_logic;  -- Shift register
-         -- FPGA_QSPI
---      FPGA_QSPI_SCLK    : out    std_logic;
---      FPGA_QSPI_IO0     : out    std_logic;
---      FPGA_QSPI_IO1     : in     std_logic;
---      FPGA_QSPI_IO2     : out    std_logic;
---      FPGA_QSPI_IO3     : out    std_logic;
---      FPGA_QSPI_FLASH_SS: out    std_logic;
          -- FPGA I2C
       FPGA_I2C_SCL      : inout  std_logic;
       FPGA_I2C_SDA      : inout  std_logic;
@@ -161,18 +134,7 @@ entity lms7_trx_top is
       SR_DIN            : out    std_logic;
       SR_LATCH          : out    std_logic; 
       -- WIFI module
-      WIFI_PIO5         : inout  std_logic;
-         -- LEDs          
-      --FPGA_LED1_R       : out    std_logic;
-      --FPGA_LED1_G       : out    std_logic;
-      --FPGA_LED2_R       : out    std_logic;
-      --FPGA_LED2_G       : out    std_logic;
-      --FPGA_LED3_R       : out    std_logic;
-      --FPGA_LED3_G       : out    std_logic;
-      --FPGA_LED4_R       : out    std_logic;
-      --FPGA_LED4_G       : out    std_logic;
-      --FPGA_LED5_R       : out    std_logic;
-      --FPGA_LED5_G       : out    std_logic;      
+      WIFI_PIO5         : inout  std_logic;   
          -- Button
       FPGA_BTN          : in     std_logic;
          -- Switch
@@ -187,9 +149,6 @@ entity lms7_trx_top is
       FAN_CTRL          : out    std_logic;
          -- Phase detector
       ADF_MUXOUT        : in     std_logic;
-         -- Power
-      --FPGA_EN_REG       : out    std_logic;
-      --FPGA_PWR_MON      : in     std_logic;
          -- Bill Of material and hardware version 
       BOM_VER           : in     std_logic_vector(3 downto 0);
       HW_VER            : in     std_logic_vector(2 downto 0)
@@ -280,7 +239,11 @@ signal inst4_led2_g              : std_logic;
 signal inst4_led2_r              : std_logic;
 signal inst4_led3_g              : std_logic;
 signal inst4_led3_r              : std_logic;
-
+signal FPGA_LED1_G,FPGA_LED1_R   : std_logic;
+signal FPGA_LED2_G,FPGA_LED2_R   : std_logic;
+signal FPGA_LED3_G,FPGA_LED3_R   : std_logic;
+signal FPGA_LED4_G,FPGA_LED4_R   : std_logic;
+signal FPGA_LED5_G,FPGA_LED5_R   : std_logic;
 
 
 --inst5
@@ -320,6 +283,9 @@ signal inst7_fpga_led_r             : std_logic;
 
 --inst9
 signal inst9_data                   : std_logic_vector(31 downto 0);
+
+signal eth_led1                     : std_logic;
+signal eth_led2                     : std_logic;
 
 
 begin
@@ -549,8 +515,7 @@ begin
       EP82_wdata     => inst0_exfifo_of_d,
       EP82_wfull     => inst2_EP82_wfull,
       --stream endpoint fifo PC->FPGA
-      EP03_aclrn_0   => inst0_from_fpgacfg.rx_en,
-      EP03_aclrn_1   => inst6_tx_in_pct_reset_n_req,
+      EP03_aclrn     => inst0_from_fpgacfg.rx_en,
       EP03_rdclk     => inst1_pll_c1,
       EP03_rd        => inst6_tx_in_pct_rdreq,
       EP03_rdata     => inst2_EP03_rdata,
@@ -597,8 +562,13 @@ begin
 -- ----------------------------------------------------------------------------
    inst4_general_periph_top : entity work.general_periph_top
    generic map(
-      DEV_FAMILY  => DEV_FAMILY,
-      N_GPIO      => C_INST4_GPIO_N
+      DEV_FAMILY        => DEV_FAMILY,
+      N_GPIO            => C_INST4_GPIO_N,
+      led1_active_lvl   => '0',
+      led2_active_lvl   => '0',
+      led3_active_lvl   => '0',
+      led4_active_lvl   => '0',
+      led5_active_lvl   => '0'
    )
    port map(
       -- General ports
@@ -608,27 +578,48 @@ begin
       to_periphcfg         => inst0_to_periphcfg,
       from_periphcfg       => inst0_from_periphcfg,     
       -- Dual colour LEDs
-      -- LED1 (Clock and PLL lock status)
-      led1_pll1_locked     => inst1_pll_locked,
-      led1_pll2_locked     => inst1_pll_locked,
+      -- LED1 ( Raspberry eMMC enable )
+      led1_in_g            => RAPI_EMMC_EN,
+      led1_in_r            => inst5_busy,
       led1_ctrl            => inst0_from_fpgacfg.FPGA_LED1_CTRL,
-      led1_g               => inst4_led1_g, 
-      led1_r               => inst4_led1_r,      
-      --LED2 (TCXO control status)
-      led2_clk             => inst0_spi_0_SCLK,
-      led2_adf_muxout      => ADF_MUXOUT,
-      led2_dac_ss          => inst0_spi_0_SS_n(2),
-      led2_adf_ss          => inst0_spi_0_SS_n(3),
+      led1_out_g           => FPGA_LED1_G,
+      led1_out_r           => FPGA_LED1_R,
+      
+      -- LED2 ( FTDI and NIOS busy )
+      led2_in_g            => NOT ETH_GPIO1,
+      led2_in_r            => NOT WIFI_PIO5,
       led2_ctrl            => inst0_from_fpgacfg.FPGA_LED2_CTRL,
-      led2_g               => inst4_led2_g,
-      led2_r               => inst4_led2_r,     
-      --LED3 (FTDI and NIOS CPU busy)
-      led3_g_in            => not inst5_busy,
-      led3_r_in            => inst5_busy,
-      led3_ctrl            => inst0_from_fpgacfg.FX3_LED_CTRL,
-      led3_hw_ver          => "0011",
-      led3_g               => inst4_led3_g,
-      led3_r               => inst4_led3_r,     
+      led2_out_g           => FPGA_LED2_G,
+      led2_out_r           => FPGA_LED2_R,
+      led2_hw_ver          => "0011",
+      
+      
+      -- LED3 ( Clock and PLL lock )
+      led3_ctrl            => inst0_from_fpgacfg.FPGA_LED3_CTRL,
+      led3_out_g           => FPGA_LED3_G,
+      led3_out_r           => FPGA_LED3_R,
+      led3_pll1_locked     => inst1_pll_locked,
+      led3_pll2_locked     => inst1_pll_locked,
+      
+      
+      -- LED4 ( TCXO control status )
+      led4_ctrl            => inst0_from_fpgacfg.FPGA_LED4_CTRL,
+      led4_out_g           => FPGA_LED4_G,
+      led4_out_r           => FPGA_LED4_R,
+                           
+      led4_clk             => inst0_spi_0_SCLK,
+      led4_adf_muxout      => ADF_MUXOUT,
+      led4_dac_ss          => inst0_spi_0_SS_n(2),
+      led4_adf_ss          => inst0_spi_0_SS_n(3),
+      led4_gnss_en         => inst7_en,
+      
+      
+      -- LED5 ( GNSS status )
+      led5_in_g            => inst7_fpga_led_g,
+      led5_in_r            => inst7_fpga_led_r,
+      led5_ctrl            => inst0_from_fpgacfg.FPGA_LED5_CTRL,
+      led5_out_g           => FPGA_LED5_G,
+      led5_out_r           => FPGA_LED5_R,
       --GPIO
       gpio_dir             => (others=>'1'),
       gpio_out_val         => "000000000" & inst1_pll_locked,
@@ -636,7 +627,14 @@ begin
       gpio                 => inst4_gpio,      
       --Fan control
       fan_sens_in          => LM75_OS,
-      fan_ctrl_out         => FAN_CTRL
+      fan_ctrl_out         => FAN_CTRL,
+      
+      --Button
+      FPGA_BTN             => NOT FPGA_BTN,
+      
+      --Buzzer
+      Buzzer_en            => '0',
+      Buzzer               => BUZZER
    );
    
       inst5_busy_delay : entity work.busy_delay
@@ -689,7 +687,6 @@ begin
       tx_DIQ                  => LMS_DIQ1_D,
       tx_fsync                => LMS_ENABLE_IQSEL1,
       --fifo ports
-      tx_in_pct_reset_n_req   => inst6_tx_in_pct_reset_n_req,
       tx_in_pct_rdreq         => inst6_tx_in_pct_rdreq,
       tx_in_pct_data          => inst2_EP03_rdata,
       tx_in_pct_rdempty       => inst2_EP03_rempty,
@@ -766,31 +763,33 @@ begin
    ); 
    
    
+   eth_led1 <= ETH_GPIO2 when inst0_from_periphcfg.PERIPH_OUTPUT_OVRD_0(2) = '0' else inst0_from_periphcfg.PERIPH_OUTPUT_VAL_0(2);
+   eth_led2 <= ETH_GPIO1 when inst0_from_periphcfg.PERIPH_OUTPUT_OVRD_0(3) = '0' else inst0_from_periphcfg.PERIPH_OUTPUT_VAL_0(3);
    
 -- ----------------------------------------------------------------------------
 -- Shift registers
 -- ----------------------------------------------------------------------------
    -- Raspberry activity
-   inst9_data( 0) <= NOT RAPI_EMMC_EN;       -- FPGA_LED1_R
-   inst9_data( 1) <= RAPI_EMMC_EN;           -- FPGA_LED1_G
+   inst9_data( 0) <= FPGA_LED1_R;
+   inst9_data( 1) <= FPGA_LED1_G;
    -- FTDI activity
-   inst9_data( 2) <= NOT inst4_led3_r;       -- FPGA_LED2_R
-   inst9_data( 3) <= NOT inst4_led3_g;       -- FPGA_LED2_G
+   inst9_data( 2) <= FPGA_LED2_R;
+   inst9_data( 3) <= FPGA_LED2_G;
    -- FPGA alive and PLL lock
-   inst9_data( 4) <= NOT inst4_led1_r;       -- FPGA_LED3_R
-   inst9_data( 5) <= NOT inst4_led1_g;       -- FPGA_LED3_G
+   inst9_data( 4) <= FPGA_LED3_R;
+   inst9_data( 5) <= FPGA_LED3_G;
    -- VCTCXO tamer tune state
-   inst9_data( 6) <= NOT inst4_led2_r;       -- FPGA_LED4_R
-   inst9_data( 7) <= NOT inst4_led2_g;       -- FPGA_LED4_G
+   inst9_data( 6) <= FPGA_LED4_R;
+   inst9_data( 7) <= FPGA_LED4_G;
    
-   inst9_data( 8) <= NOT inst7_fpga_led_r;   -- FPGA_LED5_R    
-   inst9_data( 9) <= NOT inst7_fpga_led_g;   -- FPGA_LED5_G    
-   inst9_data(10) <= ETH_GPIO0;              -- ETH_LED1       
-   inst9_data(11) <= ETH_GPIO1;              -- ETH_LED2       
+   inst9_data( 8) <= FPGA_LED5_R;    
+   inst9_data( 9) <= FPGA_LED5_G;    
+   inst9_data(10) <= eth_led1;   -- ETH_LED1       
+   inst9_data(11) <= eth_led2;   -- ETH_LED2       
    inst9_data(12) <= inst0_from_fpgacfg.LMS1_RESET AND inst0_lms_ctr_gpio(0); -- LMS_RESET      
-   inst9_data(13) <= inst0_from_fpgacfg.LMS1_CORE_LDO_EN;   -- LMS_CORE_LDO_EN
-   inst9_data(14) <= inst0_from_fpgacfg.LMS1_RXEN;          -- LMS_RXEN       
-   inst9_data(15) <= inst0_from_fpgacfg.LMS1_TXEN;          -- LMS_TXEN       
+   inst9_data(13) <= inst0_from_fpgacfg.LMS1_CORE_LDO_EN;                     -- LMS_CORE_LDO_EN
+   inst9_data(14) <= inst0_from_fpgacfg.LMS1_RXEN;                            -- LMS_RXEN       
+   inst9_data(15) <= inst0_from_fpgacfg.LMS1_TXEN;                            -- LMS_TXEN       
    inst9_data(16) <= int_FPGA_SPI_ADF_SS;    -- FPGA_SPI_ADF_SS  
    inst9_data(17) <= int_FPGA_SPI_DAC_SS;    -- FPGA_SPI_DAC_SS  
    inst9_data(18) <= int_FPGA_SPI_FLASH_SS;  -- FPGA_SPI_FLASH_SS
@@ -799,14 +798,14 @@ begin
    inst9_data(21) <= '1'; -- FT_RESETn        
    inst9_data(22) <= '1'; -- RAPI_RUN         
    inst9_data(23) <= '0'; -- -                  
-   inst9_data(24) <= inst0_from_fpgacfg.GPIO(12);  -- RFSW_TX_V1
-   inst9_data(25) <= inst0_from_fpgacfg.GPIO(13);  -- RFSW_TX_V2
-   inst9_data(26) <= inst0_from_fpgacfg.GPIO(8);   -- RFSW_RX_V1
-   inst9_data(27) <= inst0_from_fpgacfg.GPIO(9);   -- RFSW_RX_V2
-   inst9_data(28) <= '0'; -- -
-   inst9_data(29) <= '0'; -- - 
-   inst9_data(30) <= '0'; -- - 
-   inst9_data(31) <= '0'; -- -
+   inst9_data(24) <= inst0_from_fpgacfg.GPIO(12); -- RFSW_TX_V1
+   inst9_data(25) <= inst0_from_fpgacfg.GPIO(13); -- RFSW_TX_V2
+   inst9_data(26) <= inst0_from_fpgacfg.GPIO(14); -- RFSW_TXO_V1
+   inst9_data(27) <= inst0_from_fpgacfg.GPIO(0);  -- RFSW_TRXA_V1
+   inst9_data(28) <= inst0_from_fpgacfg.GPIO(1);  -- RFSW_TRXB_V1
+   inst9_data(29) <= inst0_from_fpgacfg.GPIO(10); -- RFSW_RXI_V1 
+   inst9_data(30) <= inst0_from_fpgacfg.GPIO(8);  -- RFSW_RX_V1
+   inst9_data(31) <= inst0_from_fpgacfg.GPIO(9);  -- RFSW_RX_V2
 
    inst9_IC_74HC595_top : entity work.IC_74HC595_top
    port map(
@@ -826,73 +825,17 @@ begin
    -- FPGA_SPI (LMS, DAC, ADF, FLASH) 
    FPGA_SPI_SCLK    <=  inst0_spi_1_SCLK when inst0_spi_1_SS_n(0) = '0' else inst0_spi_0_SCLK;                                  
    FPGA_SPI_MOSI    <=  inst0_spi_1_MOSI when inst0_spi_1_SS_n(0) = '0' else inst0_spi_0_MOSI;                      
-   FPGA_SPI_LMS_SS  <=  inst0_spi_0_SS_n(0); --RAPI_SPI1_CE1;
-   int_FPGA_SPI_DAC_SS  <= inst0_spi_0_SS_n(2);
+   FPGA_SPI_LMS_SS  <=  inst0_spi_0_SS_n(0);
    
-   int_FPGA_SPI_ADF_SS  <= inst0_spi_0_SS_n(3);
-  
+   int_FPGA_SPI_DAC_SS  <= inst0_spi_0_SS_n(2);  
+   int_FPGA_SPI_ADF_SS  <= inst0_spi_0_SS_n(3);  
    int_FPGA_SPI_FLASH_SS<= inst0_spi_1_SS_n(0); 
    
-   
-   -- FPGA_SPI (DAC, ADF)
-      --When VCTCXO tamer is enabled, DAC is controlled from NIOS. 
-      --Workaround for negative polarity clock for DAC when controlled from RAPI
-      --Positive polarity 
---   FPGA_SPI_SCLK    <= inst0_spi_0_SCLK   when inst0_spi_0_SS_n(2) = '0' else
---                        not RAPI_SPI1_SCLK when RAPI_SPI1_CE0 = '0' else 
---                        RAPI_SPI1_SCLK;
---                                                                     
---   FPGA_SPI_MOSI    <= inst0_spi_0_MOSI  when inst0_spi_0_SS_n(2) = '0' else 
---                        RAPI_SPI1_MOSI;
-                        
-   --FPGA_SPI_DAC_SS  <= RAPI_SPI1_CE0     when inst7_en = '0' else 
-   --                     inst0_spi_0_SS_n(2);
-   
-   --FPGA_SPI_ADF_SS  <= RAPI_SPI1_CE3_int; 
-   
-   -- FPGA_QSPI (Flash)
---   FPGA_QSPI_SCLK    <= inst0_spi_1_SCLK;
---   FPGA_QSPI_IO0     <= inst0_spi_1_MOSI;
---   FPGA_QSPI_IO2     <= '1';
---   FPGA_QSPI_IO3     <= '1';
---   FPGA_QSPI_FLASH_SS<= inst0_spi_1_SS_n(0);
-   
-   -- LMS MISC
-   --LMS_RESET         <= inst0_from_fpgacfg.LMS1_RESET;-- AND inst0_lms_ctr_gpio(0);
-   --LMS_TXEN          <= inst0_from_fpgacfg.LMS1_TXEN;
-   --LMS_RXEN          <= inst0_from_fpgacfg.LMS1_RXEN;
-   --LMS_CORE_LDO_EN   <= inst0_from_fpgacfg.LMS1_CORE_LDO_EN;
    LMS_TXNRX1        <= inst0_from_fpgacfg.LMS1_TXNRX1;
    LMS_TXNRX2        <= inst0_from_fpgacfg.LMS1_TXNRX2;
 
-   -- Ethernet
-   --ETH_NRESET        <= '1';
-   --ETH_AUTOMDIX_EN   <= '1';  
-   
-   -- Instantiating OPNDRN
---   inst0_OPNDRN : OPNDRN
---   port map (a_in => ETH_GPIO0, a_out => ETH_LED1);
-   
---   inst1_OPNDRN : OPNDRN
---   port map (a_in => ETH_GPIO1, a_out => ETH_LED2);
-   
-   -- LEDS
-   --FPGA_LED1_R <= RAPI_EMMC_EN;     -- Raspberry activity
-   --FPGA_LED1_G <= NOT RAPI_EMMC_EN;
-   --FPGA_LED2_R <= inst4_led1_r;     -- FPGA PLL lock
-   --FPGA_LED2_G <= inst4_led1_g;
-   --FPGA_LED3_R <= inst7_fpga_led_r; -- VCTCXO tamer status
-   --FPGA_LED3_G <= inst7_fpga_led_g; 
-   --FPGA_LED4_R <= ETH_GPIO1;        -- Ethernet status (active low)
-   --FPGA_LED4_G <= not ETH_GPIO1;
-   --FPGA_LED5_R <= ETH_GPIO2;
-   --FPGA_LED5_G <= not ETH_GPIO2;
-
-   -- Buzzer
-   BUZZER <= not FPGA_BTN;
-   
-   --Testing ()
-   FPGA_GPIO(0) <=  inst7_uart_tx;
+   --Testing
+   FPGA_GPIO(0)      <=  inst7_uart_tx;
    
    
    

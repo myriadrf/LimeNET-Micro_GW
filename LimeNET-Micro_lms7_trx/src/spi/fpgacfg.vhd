@@ -209,12 +209,15 @@ begin
          mem(20)  <= "0000000000000011";  --  0 free, (Reserved LMS control)
          mem(21)  <= "0000000000000000";  --  0 free, (Reserved LMS control)
          mem(22)  <= "0000000000000000";  --  0 free, (Reserved LMS control)
-         mem(23)  <= "0001000101000100";  --  0 free, (Reserved), GPIO[6:0]
+         mem(23)  <= "0101011000000010";  --  0 free, (Reserved), GPIO[6:0]
          mem(24)  <= "0000000000000000";  -- 16 free, (Reserved) 
          mem(25)  <= "0000000000000000";  -- 16 free, (Reserved)
-         mem(26)  <= "0000000000000000";  --  0 free, Reserved[15:8],FPGA_LED2_G,FPGA_LED2_R,FPGA_LED2_OVRD,Reserved,FPGA_LED1_G,FPGA_LED1_R,FPGA_LED1_OVRD
-         mem(27)  <= "0000000000000000";  --  0 free, Reserved[15:0]
-         mem(28)  <= "0000000000000000";  --  0 free, Reserved[15:4],FX3_LED_G,FX3_LED_R,FX3_LED_OVRD
+         mem(26)  <= "0000000000000000";  --  0 free, Reserved, FPGA_LED5_G, FPGA_LED5_R,FPGA_LED5_OVRD,
+                                                   -- Reserved, FPGA_LED4_G, FPGA_LED4_R,FPGA_LED4_OVRD,
+                                                   -- Reserved, FPGA_LED3_G, FPGA_LED3_R,FPGA_LED3_OVRD,
+                                                   -- Reserved, FPGA_LED2_G, FPGA_LED2_R,FPGA_LED2_OVRD,
+         mem(27)  <= "0000000000000000";  --  0 free, Reserved[15:4], FPGA_LED1_G, FPGA_LED1_R,FPGA_LED1_OVRD
+         mem(28)  <= "0000000000000000";  --  0 free, Reserved[15:0]
          mem(29)  <= "0000000000001111";  --  0 free, CLK_ENA[1:0]
          mem(30)  <= x"0003";             --  0 free, sync_pulse_period MSb 
          mem(31)  <= x"D090";             --  0 free, sync_pulse_period LSb
@@ -287,10 +290,12 @@ begin
 --    from_fpgacfg.LMS2_TXNRX2         <= mem(19)(12);
 --    from_fpgacfg.LMS2_TXEN           <= mem(19)(13);
 --    from_fpgacfg.LMS2_RXEN           <= mem(19)(14);
-      from_fpgacfg.GPIO                <= mem(23)(15 downto 0);
-      from_fpgacfg.FPGA_LED1_CTRL      <= mem(26)(2 downto 0);
-      from_fpgacfg.FPGA_LED2_CTRL      <= mem(26)(6 downto 4);
-      from_fpgacfg.FX3_LED_CTRL        <= mem(28)(2 downto 0);
+      from_fpgacfg.GPIO                <= mem(23)(15 downto 0 );
+      from_fpgacfg.FPGA_LED2_CTRL      <= mem(26)(2  downto 0 );
+      from_fpgacfg.FPGA_LED3_CTRL      <= mem(26)(6  downto 4 );
+      from_fpgacfg.FPGA_LED4_CTRL      <= mem(26)(10 downto 8 );
+      from_fpgacfg.FPGA_LED5_CTRL      <= mem(26)(14 downto 12);
+      from_fpgacfg.FPGA_LED1_CTRL      <= mem(27)(2  downto 0 );      
       from_fpgacfg.CLK_ENA             <= mem(29)(3 downto 0);
       from_fpgacfg.sync_pulse_period   <= mem(30)(15 downto 0) & mem(31)(15 downto 0);
 

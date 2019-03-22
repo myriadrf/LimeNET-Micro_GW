@@ -157,7 +157,7 @@
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="lockedInterfaceDefinition" value="" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName">limesdr-mini_factory.qpf</parameter>
+ <parameter name="projectName">LimeNET-Micro_factory.qpf</parameter>
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="testBenchDutName" value="" />
@@ -191,21 +191,21 @@
  <module
    name="bridge_0"
    kind="altera_up_external_bus_to_avalon_bridge"
-   version="17.1"
+   version="18.0"
    enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_RATE" value="40000000" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="30720000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="MAX 10" />
   <parameter name="addr_size" value="2" />
   <parameter name="addr_size_multiplier" value="Mbytes" />
   <parameter name="data_size" value="32" />
  </module>
- <module name="clk_0" kind="clock_source" version="17.1" enabled="1">
-  <parameter name="clockFrequency" value="40000000" />
+ <module name="clk_0" kind="clock_source" version="18.0" enabled="1">
+  <parameter name="clockFrequency" value="30720000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <module name="dual_boot_0" kind="altera_dual_boot" version="17.1" enabled="1">
+ <module name="dual_boot_0" kind="altera_dual_boot" version="18.0" enabled="1">
   <parameter name="CLOCK_FREQUENCY" value="40.0" />
   <parameter name="INTENDED_DEVICE_FAMILY" value="MAX 10" />
  </module>
@@ -217,9 +217,9 @@
  <module
    name="onchip_flash_0"
    kind="altera_onchip_flash"
-   version="17.1"
+   version="18.0"
    enabled="1">
-  <parameter name="AUTO_CLOCK_RATE" value="40000000" />
+  <parameter name="AUTO_CLOCK_RATE" value="30720000" />
   <parameter name="CLOCK_FREQUENCY" value="40.0" />
   <parameter name="CONFIGURATION_MODE">Dual Compressed Images</parameter>
   <parameter name="CONFIGURATION_SCHEME">Internal Configuration</parameter>
@@ -235,11 +235,11 @@
   <parameter name="initializationFileNameForSim">altera_onchip_flash.dat</parameter>
   <parameter name="useNonDefaultInitFile" value="false" />
  </module>
- <module name="pio_0" kind="altera_avalon_pio" version="17.1" enabled="1">
+ <module name="pio_0" kind="altera_avalon_pio" version="18.0" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="true" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="40000000" />
+  <parameter name="clockRate" value="30720000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
@@ -251,7 +251,7 @@
  </module>
  <connection
    kind="avalon"
-   version="17.1"
+   version="18.0"
    start="bridge_0.avalon_master"
    end="dual_boot_0.avalon">
   <parameter name="arbitrationPriority" value="1" />
@@ -260,7 +260,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="18.0"
    start="bridge_0.avalon_master"
    end="i2c_opencores_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
@@ -269,7 +269,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="18.0"
    start="bridge_0.avalon_master"
    end="avs_fifo_int_0.avs_s0">
   <parameter name="arbitrationPriority" value="1" />
@@ -278,7 +278,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="18.0"
    start="bridge_0.avalon_master"
    end="onchip_flash_0.csr">
   <parameter name="arbitrationPriority" value="1" />
@@ -287,7 +287,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="18.0"
    start="bridge_0.avalon_master"
    end="onchip_flash_0.data">
   <parameter name="arbitrationPriority" value="1" />
@@ -296,55 +296,55 @@
  </connection>
  <connection
    kind="avalon"
-   version="17.1"
+   version="18.0"
    start="bridge_0.avalon_master"
    end="pio_0.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="clock" version="17.1" start="clk_0.clk" end="dual_boot_0.clk" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="pio_0.clk" />
- <connection kind="clock" version="17.1" start="clk_0.clk" end="bridge_0.clk" />
+ <connection kind="clock" version="18.0" start="clk_0.clk" end="dual_boot_0.clk" />
+ <connection kind="clock" version="18.0" start="clk_0.clk" end="pio_0.clk" />
+ <connection kind="clock" version="18.0" start="clk_0.clk" end="bridge_0.clk" />
  <connection
    kind="clock"
-   version="17.1"
+   version="18.0"
    start="clk_0.clk"
    end="onchip_flash_0.clk" />
  <connection
    kind="clock"
-   version="17.1"
+   version="18.0"
    start="clk_0.clk"
    end="avs_fifo_int_0.clock" />
  <connection
    kind="clock"
-   version="17.1"
+   version="18.0"
    start="clk_0.clk"
    end="i2c_opencores_0.clock" />
  <connection
    kind="reset"
-   version="17.1"
+   version="18.0"
    start="clk_0.clk_reset"
    end="i2c_opencores_0.clock_reset" />
  <connection
    kind="reset"
-   version="17.1"
+   version="18.0"
    start="clk_0.clk_reset"
    end="dual_boot_0.nreset" />
  <connection
    kind="reset"
-   version="17.1"
+   version="18.0"
    start="clk_0.clk_reset"
    end="onchip_flash_0.nreset" />
- <connection kind="reset" version="17.1" start="clk_0.clk_reset" end="pio_0.reset" />
+ <connection kind="reset" version="18.0" start="clk_0.clk_reset" end="pio_0.reset" />
  <connection
    kind="reset"
-   version="17.1"
+   version="18.0"
    start="clk_0.clk_reset"
    end="bridge_0.reset" />
  <connection
    kind="reset"
-   version="17.1"
+   version="18.0"
    start="clk_0.clk_reset"
    end="avs_fifo_int_0.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />

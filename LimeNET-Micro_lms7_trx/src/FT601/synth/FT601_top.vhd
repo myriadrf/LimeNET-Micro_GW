@@ -50,8 +50,7 @@ entity FT601_top is
       EP82_wdata     : in std_logic_vector(EP82_wwidth-1 downto 0);
       EP82_wfull     : out std_logic;
       --stream endpoint fifo PC->FPGA
-      EP03_aclrn_0   : in std_logic;
-      EP03_aclrn_1   : in std_logic;
+      EP03_aclrn     : in std_logic;
       EP03_rdclk     : in std_logic;
       EP03_rd        : in std_logic;
       EP03_rdata     : out std_logic_vector(EP03_rwidth-1 downto 0);
@@ -86,8 +85,7 @@ signal EP82_fifo_q         : std_logic_vector(FT_data_width-1 downto 0);
 signal EP82_fifo_rdreq     : std_logic;
 
 --EP03 fifo signals
-signal EP03_sclrn_0        : std_logic; 
-signal EP03_sclrn_1        : std_logic; 
+signal EP03_sclrn          : std_logic; 
 signal EP03_wrempty        : std_logic; 
 signal EP03_wr             : std_logic;
 signal EP03_wdata          : std_logic_vector(FT_data_width-1 downto 0);
@@ -113,10 +111,8 @@ signal fsm_wr_data         : std_logic_vector(FT_data_width-1 downto 0);
 begin
 
    sync_reg0 : entity work.sync_reg 
-   port map(clk, EP03_aclrn_0, '1', EP03_sclrn_0);
+   port map(clk, EP03_aclrn, '1', EP03_sclrn);
    
-   sync_reg1 : entity work.sync_reg 
-   port map(clk, EP03_aclrn_1, '1', EP03_sclrn_1);
 
 -- ----------------------------------------------------------------------------
 -- FTDI endpoint fifos
@@ -172,20 +168,17 @@ begin
    );
 
 -- stream PC-> FPGA
-   EP03_fifo : entity work.two_fifo_inst   
+   EP03_fifo : entity work.fifo_inst   
    generic map(
       dev_family     => "MAX 10",
       wrwidth        => FT_data_width, --32 bits ftdi side, 
-      wrusedw_witdth => 10,            --10=512 words (2048kB), FTDI configuration requires accept 2048kB buffer  
+      wrusedw_witdth => FIFOWR_SIZE(FT_data_width, EP03_rwidth, EP03_rdusedw_width),      --10=512 words (2048kB)  
       rdwidth        => EP03_rwidth,
       rdusedw_width  => EP03_rdusedw_width,   
-      show_ahead     => "OFF",
-      TRNSF_SIZE     => 512, 
-      TRNSF_N        => 8
+      show_ahead     => "OFF"
    )
    port map(
-      reset_0_n   => EP03_sclrn_0,
-      reset_1_n   => EP03_sclrn_1,  
+      reset_n     => EP03_sclrn,
       wrclk       => clk,
       wrreq       => EP03_wr,
       data        => EP03_wdata,

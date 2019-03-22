@@ -22,7 +22,6 @@ entity FPGA_LED1_cntrl is
       pll1_locked    : in std_logic;
       pll2_locked    : in std_logic;
       alive          : in std_logic;
-      led_ctrl       : in std_logic_vector(2 downto 0);
       --output ports 
       led_g          : out std_logic;
       led_r          : out std_logic
@@ -35,22 +34,15 @@ end FPGA_LED1_cntrl;
 -- ----------------------------------------------------------------------------
 architecture arch of FPGA_LED1_cntrl is
 signal all_pll_locked   : std_logic;
-signal led_g_ovr        : std_logic;
-signal led_r_ovr        : std_logic;
 signal led_r_def        : std_logic;
   
 begin
 
-
-led_g_ovr<= '1' when led_ctrl(2)='1' and led_ctrl(1)='0' else '0';
-led_r_ovr<= '1' when led_ctrl(1)='1' and led_ctrl(2)='0' else '0';
-
 all_pll_locked <= pll1_locked and pll2_locked;
-led_r_def      <= not alive when all_pll_locked='0' else 
-                  '0';
+led_r_def      <= not alive when all_pll_locked='0' else '0';
                   
-led_g <= alive when led_ctrl(0)='0' else led_g_ovr;
-led_r <= led_r_def when led_ctrl(0)='0' else led_r_ovr;
+led_g <= alive;
+led_r <= led_r_def;
   
 end arch;
 
