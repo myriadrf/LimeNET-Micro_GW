@@ -8,9 +8,10 @@ The gateware can be built with the free version of the Altera Quartus tools.
 
 This repository contains the following hardware-specific branches:
 
-* master:
-  * Compiled gateware file for Hardware Revision 2v0 is LimeNET-Micro_bitstreams/LimeNET-Micro_lms7_trx_HW_2.0.pof.
-* Other branches will be removed later.
+* FTDI:
+  * Communication is done through FTDI interface;
+  * Compiled gateware file for Hardware Revision 2v1 is LimeNET-Micro_bitstreams/LimeNET-Micro_lms7_trx_HW_2.1.pof.
+
   
 ## Licensing
 
