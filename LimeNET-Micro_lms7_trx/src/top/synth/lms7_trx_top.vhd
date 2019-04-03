@@ -80,7 +80,7 @@ entity lms7_trx_top is
       --LMS_CORE_LDO_EN   : out    std_logic;   -- Shift register
       -- ----------------------------------------------------------------------------
       -- Raspberry
-      RAPI_GPCLK1       : in     std_logic;
+      RAPI_GPCLK1       : out    std_logic;
          --SPI0
       RAPI_SPI0_SCLK    : in     std_logic;
       RAPI_SPI0_MOSI    : in     std_logic;
@@ -168,6 +168,7 @@ signal reset_n_lmk_clk           : std_logic;
 signal int_FPGA_SPI_DAC_SS       : std_logic;
 signal int_FPGA_SPI_ADF_SS       : std_logic;
 signal int_FPGA_SPI_FLASH_SS     : std_logic;
+signal fpga_btn_dbncd            : std_logic;
 
 --inst0 (NIOS CPU instance)
 signal inst0_exfifo_if_rd        : std_logic;
@@ -325,7 +326,17 @@ begin
    port map(FT_CLK, reset_n, '1', reset_n_ft_clk);
    
    sync_reg1 : entity work.sync_reg 
-   port map(LMK_CLK, reset_n, '1', reset_n_lmk_clk);   
+   port map(LMK_CLK, reset_n, '1', reset_n_lmk_clk); 
+ 
+   -- Button debounce logic
+   btn_deb: entity work.debounce
+   generic map(
+      counter_size  => 19)
+   port map(
+      clk     => LMK_CLK,
+      button  => FPGA_BTN,
+      result  => fpga_btn_dbncd
+    );
 
 -- ----------------------------------------------------------------------------
 -- NIOS CPU instance.
@@ -835,7 +846,9 @@ begin
    LMS_TXNRX2        <= inst0_from_fpgacfg.LMS1_TXNRX2;
 
    --Testing
-   FPGA_GPIO(0)      <=  inst7_uart_tx;
+   FPGA_GPIO(0)      <= inst7_uart_tx;
+   
+   RAPI_GPCLK1       <= not fpga_btn_dbncd;
    
    
    
