@@ -363,6 +363,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to WIFI_PIO5
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to BOM_VER[3]
 set_location_assignment PIN_H5 -to RAPI_GPCLK1
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RAPI_GPCLK1
+set_global_assignment -name VHDL_FILE src/general/debounce.vhd
 set_global_assignment -name VHDL_FILE src/tx_path_top/pct_separate/synth/pct_separate_fsm.vhd
 set_global_assignment -name VHDL_FILE src/tx_path_top/pct_separate/synth/one_pct_fifo.vhd
 set_global_assignment -name VHDL_FILE src/general/out_ctrl.vhd
