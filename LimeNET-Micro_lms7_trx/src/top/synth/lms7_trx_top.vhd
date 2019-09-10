@@ -232,7 +232,7 @@ signal inst2_EP02_rdusedw        : std_logic_vector(C_EP02_RDUSEDW_WIDTH-1 downt
 signal inst2_EP_act              : std_logic;
 
 --inst4
-constant C_INST4_GPIO_N          : integer := 10; --FPGA_GPIO'length + FPGA_EGPIO'length;
+constant C_INST4_GPIO_N          : integer := 8; --FPGA_GPIO'length;
 signal inst4_gpio                : std_logic_vector(C_INST4_GPIO_N-1 downto 0);
 signal inst4_led1_g              : std_logic;
 signal inst4_led1_r              : std_logic;
@@ -633,9 +633,9 @@ begin
       led5_out_r           => FPGA_LED5_R,
       --GPIO
       gpio_dir             => (others=>'1'),
-      gpio_out_val         => "000000000" & inst1_pll_locked,
+      gpio_out_val         => "000000" & inst7_uart_tx & inst1_pll_locked,
       gpio_rd_val          => open,
-      gpio                 => inst4_gpio,      
+      gpio                 => FPGA_GPIO,      
       --Fan control
       fan_sens_in          => LM75_OS,
       fan_ctrl_out         => FAN_CTRL,
@@ -846,7 +846,6 @@ begin
    LMS_TXNRX2        <= inst0_from_fpgacfg.LMS1_TXNRX2;
 
    --Testing
-   FPGA_GPIO(0)      <= inst7_uart_tx;
    
    RAPI_GPCLK1       <= not fpga_btn_dbncd;
    
