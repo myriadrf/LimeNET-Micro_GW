@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="simulation/submodules/clkctrl_altclkctrl_0.vhd"
+   type="VHDL"
+   library="altclkctrl_0" />
+ <file path="simulation/clkctrl.vhd" type="VHDL" />
+ <topLevel name="clkctrl" />
+ <deviceFamily name="max10" />
+</simPackage>

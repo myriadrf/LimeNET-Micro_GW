@@ -281,6 +281,7 @@ signal inst7_mm_irq                 : std_logic;
 signal inst7_uart_tx                : std_logic;
 signal inst7_fpga_led_g             : std_logic;
 signal inst7_fpga_led_r             : std_logic;
+signal inst7_gnss_tpulse				: std_logic;
 
 --inst9
 signal inst9_data                   : std_logic_vector(31 downto 0);
@@ -320,6 +321,8 @@ begin
 -- ----------------------------------------------------------------------------
    -- Reset from FPGA pin. 
    reset_n <= not HW_VER(2);
+	
+	inst7_gnss_tpulse <= GNSS_TPULSE;
    
       -- Reset signal with synchronous removal to FTDI_PCLK clock domain, 
    sync_reg0 : entity work.sync_reg 
@@ -748,7 +751,7 @@ begin
       --LimeGNSS-GPIO pins
       gnss_tx           => open,   
       gnss_rx           => GNSS_UART_TX,  
-      gnss_tpulse       => GNSS_TPULSE,   
+      gnss_tpulse       => inst7_gnss_tpulse,   
       gnss_fix          => '0',           
       fpga_led_g        => inst7_fpga_led_g,
       fpga_led_r        => inst7_fpga_led_r, 
@@ -845,9 +848,13 @@ begin
    LMS_TXNRX1        <= inst0_from_fpgacfg.LMS1_TXNRX1;
    LMS_TXNRX2        <= inst0_from_fpgacfg.LMS1_TXNRX2;
 
+	--RAPI_GPIO12
+	RAPI_GPIO12			<= inst7_gnss_tpulse;
+	
    --Testing
    
    RAPI_GPCLK1       <= not fpga_btn_dbncd;
+	
    
    
    
